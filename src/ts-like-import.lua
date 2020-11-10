@@ -59,7 +59,7 @@ end
 -- @param path: string
 -- @param parent: Instance?
 -- @return final: Instance?
-function shared:GetPath(path, parent)
+function Import:GetPath(path, parent)
 	parent = parent or BASE_PARENT;
 	for _, str in pairs(path:split("/"))do
 		-- @todo support "."
@@ -86,7 +86,7 @@ end
 -- @param args: any[]
 function Import:GetModuleArgs(modulePath, args, parent)
 	local final = {};
-	local data = shared:GetPath(modulePath, parent);
+	local data = self:GetPath(modulePath, parent);
 	if (not data) then
 		return {};
 	else
@@ -115,17 +115,22 @@ end
 
 --- import
 -- The main shared function.
+-- Also don't bully me because i used shared ://///////////////
 -- @param args: any[]
 -- @return final: module[]
-function shared.import(args)
+function Import.import(args)
 	return setmetatable(
 		{
 			from = function(_, module, parent)
+				--- Don't mind this bad code
 				return Import:GetModuleArgs(module, args, parent);
 			end
 		}
 	, MODE_KEY_METATABLE);
 end
 
+-- @function import (i actually don't know how ldoc works ¯\_(ツ)_/¯)
+Import.import = shared.import;
+
 --- export
-return { };
+return Import;
