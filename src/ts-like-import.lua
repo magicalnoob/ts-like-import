@@ -118,7 +118,7 @@ end
 -- Also don't bully me because i used shared ://///////////////
 -- @param args: any[]
 -- @return final: module[]
-function Import.import(args)
+function shared.import(args)
 	return setmetatable(
 		{
 			from = function(_, module, parent)
