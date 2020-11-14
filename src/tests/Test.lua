@@ -7,13 +7,13 @@
 -- NO!11!!!
 
 local import = shared.import;
-local returnCode = import { "object", "test" }: from("TestReturn.lua");
+local object, test = import { "object", "test" }: from("TestReturn.lua");
 
 local class = {};
 class.__index = class;
 
 function class:test()
-	print(returnCode); -- Should print out true, false
+	print(object, test); -- Should print out true, false
 end
 
 return class;
